@@ -12,13 +12,12 @@ export default function PagesContainer({
 
   const isConnectPage = path === "/";
   const isVerifyPage = path === "/verify";
-  
+
   return (
     <main className={styles.wrapper}>
       <div className={styles.container}>
-        {/* Left side */}
-        <div className={styles.features}>
-          {(isConnectPage || isVerifyPage) && (
+        {(isConnectPage || isVerifyPage) && (
+          <div className={styles.features}>
             <>
               {[
                 "Access to 100+ GAMES for FREE thanks to ads",
@@ -31,16 +30,15 @@ export default function PagesContainer({
                 </div>
               ))}
             </>
-          )}
 
-          {/* Show disclaimer only on the first page */}
-          {isConnectPage && (
-            <p className={styles.disclaimer}>
-              By continuing, you agree to our <a href="#">Terms of Service</a>{" "}
-              and <a href="#">Privacy Policy</a>.
-            </p>
-          )}
-        </div>
+            {isConnectPage && (
+              <p className={styles.disclaimer}>
+                By continuing, you agree to our <a href="#">Terms of Service</a>{" "}
+                and <a href="#">Privacy Policy</a>.
+              </p>
+            )}
+          </div>
+        )}
 
         {children}
       </div>
