@@ -1,0 +1,107 @@
+.wrapper {
+  min-height: 100vh;
+  position: relative;
+  background: linear-gradient(to bottom right, #322855, #2d3150);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  overflow: hidden;
+}
+
+.wrapper::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: 10%;
+  width: 200px;
+  height: 250px;
+  background: orange;
+  border-radius: 90% / 10%;
+  filter: blur(90px);
+  opacity: 0.3;
+  pointer-events: none;
+  transform: rotate(30deg);
+  transform-origin: left center;
+  animation: heartbeat 1.5s infinite ease-in-out;
+}
+@keyframes heartbeat {
+  0%,
+  100% {
+    transform: rotate(30deg) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: rotate(30deg) scale(1.1);
+    opacity: 0.8;
+  }
+}
+.wrapper::after {
+  content: "";
+  position: absolute;
+  bottom: 3%;
+  left: -1%;
+  width: 350px;
+  height: 30px;
+  background: cyan;
+  border-radius: 6px;
+  filter: blur(90px);
+  opacity: 1;
+  pointer-events: none;
+  transform: rotate(30deg);
+  transform-origin: left center;
+
+  /* extra glow with multiple box-shadows */
+  box-shadow: 0 0 20px cyan, 0 0 40px cyan, 0 0 60px cyan, 0 0 80px cyan,
+    0 0 100px cyan;
+  animation: heartbeat 1.5s infinite ease-in-out;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  max-width: 1000px;
+  width: 100%;
+  gap: 32px;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.features {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 400px;
+}
+
+.featureItem {
+  padding: 10px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+  max-width: 98%;
+}
+.featureItem:nth-of-type(odd) {
+  background: linear-gradient(to right, #5a466a, #372a55);
+}
+.checkIcon {
+  width: 24px;
+  height: 24px;
+}
+
+.disclaimer {
+  font-size: 12px;
+  color: #ccc;
+  text-align: center;
+}
+
+.disclaimer a {
+  color: #70d7ff;
+  text-decoration: none;
+}
