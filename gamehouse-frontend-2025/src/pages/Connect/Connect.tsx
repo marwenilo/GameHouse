@@ -6,6 +6,7 @@ import Input from "../../components/Input/Input";
 import { useNavigate } from "react-router-dom";
 import styles from "./Connect.module.css";
 import PagesContainer from "../../components/PagesContainer/PagesContainer";
+import { useEmailValidationMutation } from "../../hooks/useEmailValidationMutation";
 
 const Connect = () => {
   const [email, setEmail] = useState("");
@@ -13,15 +14,8 @@ const Connect = () => {
   const [wantsMarketing, setWantsMarketing] = useState(true);
   const navigate = useNavigate();
 
-  const mutation = useMutation({
-    mutationFn: () => sendEmailValidationCode(email),
-    onSuccess: () => {
-      setError("");
-      navigate("/verify", { state: { email } });
-    },
-    onError: (err: any) => {
-      setError(err.response?.data?.error || "Something went wrong");
-    },
+  const mutation = useEmailValidationMutation({
+    onErrorCallback: setError,
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -30,7 +24,7 @@ const Connect = () => {
       setError("Invalid email");
       return;
     }
-    mutation.mutate();
+    mutation.mutate(email);
   };
   return (
     <PagesContainer>

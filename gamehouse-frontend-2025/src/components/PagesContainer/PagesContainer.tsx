@@ -12,6 +12,7 @@ export default function PagesContainer({
 
   const isConnectPage = path === "/";
   const isVerifyPage = path === "/verify";
+  
   return (
     <main className={styles.wrapper}>
       <div className={styles.container}>

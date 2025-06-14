@@ -7,6 +7,6 @@ import Subscription from "../pages/Subscription/Subscription";
 export const router = createBrowserRouter([
   { path: "/", element: <Connect /> },
   { path: "/verify", element: <Verify /> },
-  { path: "/plans", element: <Products /> },
+  { path: "/products", element: <Products /> },
   { path: "/congrats", element: <Subscription /> },
 ]);

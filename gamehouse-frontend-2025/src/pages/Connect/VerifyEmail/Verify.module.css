@@ -1,0 +1,78 @@
+.formBox {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 400px;
+  width: 100%;
+  padding: 32px;
+  border-radius: 12px;
+}
+
+.title {
+  font-size: 28.8px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-size: 16px;
+  margin-bottom: 24px;
+}
+
+.email {
+  color: #70d7ff;
+  font-weight: 500;
+  word-break: break-all;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 19.2px;
+}
+
+.codeGroup {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.codeInput {
+  width: 48px;
+  height: 56px;
+  font-size: 24px;
+  text-align: center;
+  border: none;
+  border-radius: 8px;
+  background: white;
+  color: #000;
+}
+
+.codeInput:focus {
+  outline: 2px solid #cdb9fc;
+}
+
+.error {
+  color: #ff6b6b;
+  font-size: 14.4px;
+  text-align: center;
+}
+
+.resend {
+  font-size: 14.4px;
+  text-align: center;
+}
+
+.resendLink {
+  background: none;
+  border: none;
+  color: #70d7ff;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.verifyButton {
+  background-color: #cdb9fc !important;
+  color: #000 !important;
+}

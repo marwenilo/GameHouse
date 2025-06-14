@@ -1,0 +1,31 @@
+.modifButton {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 2px solid #beb4f5;
+  color: #beb4f5;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  overflow: hidden;
+  width: 200px;
+  position: absolute;
+  left: 30px;
+  top: 30px;
+}
+
+.arrow {
+  position: absolute;
+  left: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s ease;
+}
+
+.text {
+  pointer-events: none;
+}
