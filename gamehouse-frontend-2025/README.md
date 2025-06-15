@@ -1,54 +1,110 @@
-# React + TypeScript + Vite
+# GameHouse Frontend Technical Assessment
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 👋 Introduction
 
-Currently, two official plugins are available:
+Thank you for the opportunity to complete this Frontend Engineer assessment for GameHouse. This project simulates a real-world frontend task using mobile-first, fullscreen responsive designs with seamless transitions and interactivity.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🚀 Project Overview
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+This project includes 4 interactive steps:
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+1. **Connect Your Account** – User enters their email to receive a code.
+2. **Get Verified!** – User enters the verification code.
+3. **Choose your plan** – User selects either Monthly or Yearly subscription.
+4. **Congrats! You are now a subscriber!** – Final confirmation screen with celebratory animation.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Each screen transitions smoothly to the next, mimicking a complete onboarding user flow.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+## 📦 Tech Stack
+
+- **React 19**
+- **React Router v7**
+- **React Query v5** for data fetching and caching
+- **TypeScript** for type safety
+- **Vite** for build tooling
+- **Motion** for button ripple effects and animations
+- **Canvas-confetti** for celebration effect
+- **Custom CSS Modules** – No frameworks used
+
+---
+
+## 🧩 Features Implemented
+
+- ✅ Mobile-first responsive design (portrait and landscape)
+- ✅ Seamless transitions between steps
+- ✅ Animated ripple effects on buttons using `motion`
+- ✅ Confetti animation on subscription confirmation
+- ✅ Form validation and error handling with user feedback
+- ✅ Debounced "Resend Code" with a 30-second countdown
+- ✅ Plan selection with visual feedback
+- ✅ Support for both **USD** and **EUR** currencies
+- ✅ Full API integration with provided REST endpoints
+- ✅ Self-contained and modular component structure
+
+---
+
+## 🛠️ Setup Instructions
+
+### Prerequisites
+
+- Node.js >= 18
+- npm or pnpm installed
+
+
+### 1. Unzip the project
+
+Extract the contents of the ZIP file you received:
+marwen-magri-frontend-2025.zip
+
+- Navigate into the project folder:
+
+- cd gamehouse-frontend-2025
+
+### 2. Install dependencies
+
+- npm install
+
+### 3. Start the local development server
+
+- npm run dev
+
+This will launch the app at http://localhost:5173.
+
+# Ensure the Backend Server are also running on localhost.
+
+## 🌐 API Endpoints Used
+
+All API requests assume the backend is hosted locally.
+
+| Method | Endpoint                                    | Purpose                       |
+| ------ | ------------------------------------------- | ----------------------------- |
+| GET    | `/api/send-email-validation-code?email=...` | Request verification code     |
+| POST   | `/api/validate-email`                       | Verify code and get user ID   |
+| GET    | `/api/products`                             | Fetch pricing data            |
+| POST   | `/api/start-trial`                          | Start trial for selected plan |
+
+## 🧪 Error Handling
+
+All inputs are validated before any API call
+
+Meaningful error messages are shown (invalid email, wrong code, etc.)
+
+All API errors are gracefully handled and logged
+
+Buttons are disabled during API activity to prevent race conditions
+
+## 📱 Responsive Design
+
+Layout is optimized for mobile-first with support for both portrait and landscape orientations
+
+Flexbox and media queries were used for responsive adjustments
+
+Each page adapts to the screen size to maintain usability and aesthetic
+
+## 🙌 Thank You!
+
+I appreciate the opportunity to take part in this assessment and look forward to your feedback!****
