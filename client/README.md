@@ -58,9 +58,9 @@ Each screen transitions smoothly to the next, mimicking a complete onboarding us
 ### 1. Unzip the project
 
 Extract the contents of the ZIP file you received:
-marwen-magri-frontend-2025.zip
+marwen-magri-frontend-2025-main.zip
 
-- Navigate into the project folder:
+- Navigate into the project folder inside marwen-magri-frontend-2025-main folder:
 
 - cd client
 
