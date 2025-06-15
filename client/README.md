@@ -62,7 +62,7 @@ marwen-magri-frontend-2025.zip
 
 - Navigate into the project folder:
 
-- cd gamehouse-frontend-2025
+- cd client
 
 ### 2. Install dependencies
 
