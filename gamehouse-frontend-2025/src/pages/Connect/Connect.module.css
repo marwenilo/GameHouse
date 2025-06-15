@@ -9,7 +9,7 @@
 }
 
 .title {
-  font-size: 28.8px;
+  font-size: 30px;
   font-weight: bold;
   text-align: center;
 }
@@ -28,15 +28,10 @@
 }
 
 .checkbox {
-  font-size: 15.2px;
+  font-size: 15px;
   display: flex;
   align-items: center;
   gap: 8px;
-}
-
-.error {
-  color: #ff6b6b;
-  font-size: 14.4px;
 }
 
 .disclaimer {
@@ -51,7 +46,7 @@
 }
 
 .resend {
-  font-size: 14.4px;
+  font-size: 15px;
   text-align: center;
 }
 

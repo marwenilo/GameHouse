@@ -1,12 +1,32 @@
-
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  background-color: #f9f9f9;
+}
+.mobileOnly {
+  display: none;
+}
+
+.desktopOnly {
+  display: block;
+}
+
+.error {
+  color: #ff6b6b;
+  font-size: 13px;
+  text-align: center;
+}
+@media (max-width: 767px) {
+  .desktopOnly {
+    display: none;
   }
-  
-  body {
-    font-family: sans-serif;
-    background-color: #f9f9f9;
+  .mobileOnly {
+    display: block;
+    margin-bottom: 16px;
   }
-  
+}

@@ -52,7 +52,6 @@
   transform: rotate(30deg);
   transform-origin: left center;
 
-  /* extra glow with multiple box-shadows */
   box-shadow: 0 0 20px cyan, 0 0 40px cyan, 0 0 60px cyan, 0 0 80px cyan,
     0 0 100px cyan;
   animation: heartbeat 1.5s infinite ease-in-out;
@@ -104,4 +103,19 @@
 .disclaimer a {
   color: #70d7ff;
   text-decoration: none;
+}
+.loadingWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+}
+
+.loader {
+  width: 40px;
+  height: 40px;
+  border: 5px solid #beb4f5;
+  border-top: 5px solid transparent;
+  border-radius: 50%;
 }

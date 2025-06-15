@@ -10,5 +10,6 @@ export default defineConfig({
         changeOrigin: true,
       },
     },
+    open: true, // this makes Vite open the browser automatically
   },
 });

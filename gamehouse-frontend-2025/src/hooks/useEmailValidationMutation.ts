@@ -2,12 +2,15 @@ import { useMutation } from "@tanstack/react-query";
 import { sendEmailValidationCode } from "../api/sendEmailValidationCode";
 import { useNavigate } from "react-router-dom";
 
+/**
+ * Props for useEmailValidationMutation:
+ * - @param onSuccessCallback - Optional callback called with email on success
+ * - @param onErrorCallback - Optional callback called with error message on failure
+ */
 export function useEmailValidationMutation({
-  onSuccessRedirect = true,
   onSuccessCallback,
   onErrorCallback,
 }: {
-  onSuccessRedirect?: boolean;
   onSuccessCallback?: (email: string) => void;
   onErrorCallback?: (message: string) => void;
 }) {
@@ -15,16 +18,20 @@ export function useEmailValidationMutation({
 
   const mutation = useMutation({
     mutationFn: (email: string) => sendEmailValidationCode(email),
+
     onSuccess: (_data, email) => {
-      onErrorCallback?.(""); // clear errors
+      // Clear any previous error message
+      onErrorCallback?.("");
       if (onSuccessCallback) {
         onSuccessCallback(email);
-      } else if (onSuccessRedirect) {
+        // Navigate to verify page, passing email in location state
         navigate("/verify", { state: { email } });
       }
     },
+
     onError: (err: any) => {
-      const error = err.response?.data?.error || "Something went wrong";
+      // Extract error message from response and call error callback
+      const error = err.response?.data?.error;
       onErrorCallback?.(error);
     },
   });

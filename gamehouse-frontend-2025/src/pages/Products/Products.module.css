@@ -9,23 +9,15 @@
 }
 
 .titleProducts {
-  font-size: 29px;
+  font-size: 30px;
   font-weight: bold;
   margin-bottom: 60px;
 }
 
-/* .cardsProducts {
-  display: flex;
-  gap: 16px;
-  flex-direction: column;
-  width: 100%;
-  max-width: 600px;
-  margin-bottom: 24px;
-} */
 .cardsProducts {
   display: flex;
   gap: 16px;
-  flex-direction: column; /* stacked vertically on mobile */
+  flex-direction: column;
   width: 100%;
   margin-bottom: 24px;
 }
@@ -155,8 +147,8 @@
   padding: 14px;
   border-radius: 13px 13px 0px 0px;
 }
-@media (min-width: 600px) {
+@media (min-width: 768px) {
   .cardsProducts {
-    flex-direction: row; /* horizontal layout */
+    flex-direction: row;
   }
 }

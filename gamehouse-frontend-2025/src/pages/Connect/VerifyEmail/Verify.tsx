@@ -1,7 +1,5 @@
-import { useState, useRef, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
+import { useState, useRef, useEffect, useCallback, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import Button from "../../../components/Button/Button";
 import PagesContainer from "../../../components/PagesContainer/PagesContainer";
 import { motion } from "motion/react";
@@ -9,74 +7,103 @@ import styles from "../Connect.module.css";
 import buttonStyles from "../../../components/Button/AnimatedButton.module.css";
 import { FaArrowLeft } from "react-icons/fa6";
 import { useEmailValidationMutation } from "../../../hooks/useEmailValidationMutation";
+import PageHeader from "../../../components/PageHeader/PageHeader";
+import { useVerifyCodeMutation } from "../../../hooks/useVerifyCodeMutation";
+import { useVerify } from "../../../context/VerifyContext";
 
 export default function Verify() {
-  const location = useLocation();
   const navigate = useNavigate();
-  const email = location.state?.email;
-  const [code, setCode] = useState(Array(6).fill(""));
-  const [error, setError] = useState("");
-  const [countdown, setCountdown] = useState(30);
-  const [resendEnabled, setResendEnabled] = useState(false);
+  const { email } = useVerify();
 
+  // Store each digit of the 6-digit verification code
+  const [code, setCode] = useState(Array(6).fill(""));
+  const [error, setError] = useState(""); // Error message display
+  const [countdown, setCountdown] = useState(30); // Timer for resend button
+  const [resendEnabled, setResendEnabled] = useState(false); // Resend button enabled?
+
+  // References to input fields for auto focus control
   const inputsRef = useRef<HTMLInputElement[]>([]);
 
-  const mutation = useMutation({
-    mutationFn: () =>
-      axios.post("/api/validate-email", { email, code: code.join("") }),
-    onSuccess: (res) => {
-      setError("");
-      navigate("/products", { state: { userId: res.data.user_id } });
-    },
-    onError: (err: any) => {
-      setError(err.response?.data?.error || "Invalid code or email");
-    },
+  // Mutation for verifying the entered code
+  const mutation = useVerifyCodeMutation({
+    onErrorCallback: setError,
   });
+
+  // Mutation to resend the verification code email
   const resendMutation = useEmailValidationMutation({
     onErrorCallback: setError,
   });
-  const handleChange = (value: string, index: number) => {
-    if (!/^\d?$/.test(value)) return;
-    const newCode = [...code];
-    newCode[index] = value;
-    setCode(newCode);
-    if (value && inputsRef.current[index + 1]) {
-      inputsRef.current[index + 1].focus();
-    }
-  };
 
+  // Handle input changes, allow only digits, auto-focus next input
+  const handleChange = useCallback(
+    (value: string, index: number) => {
+      if (!/^\d?$/.test(value)) return;
+      const newCode = [...code];
+      newCode[index] = value;
+      setCode(newCode);
+      if (value && inputsRef.current[index + 1]) {
+        inputsRef.current[index + 1].focus();
+      }
+    },
+    [code]
+  );
+
+  // Submit the code for verification
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (code.some((digit) => digit === "")) {
       setError("Please fill all 6 digits");
       return;
     }
-    mutation.mutate();
+    mutation.mutate({ email: email!, code: code.join("") });
   };
 
+  // Countdown timer for enabling the resend button
   useEffect(() => {
     if (countdown <= 0) {
       setResendEnabled(true);
       return;
     }
-
-    const timer = setTimeout(() => {
-      setCountdown((prev) => prev - 1);
-    }, 1000);
-
+    const timer = setTimeout(() => setCountdown((prev) => prev - 1), 1000);
     return () => clearTimeout(timer);
   }, [countdown]);
 
+  // Trigger resend code mutation and reset timer
   const handleResend = () => {
     if (!resendEnabled) return;
-    resendMutation.mutate(email);
+    resendMutation.mutate(email!);
     setCountdown(30);
     setResendEnabled(false);
   };
+
+  // Header shown only on mobile devices
+  const header = useMemo(
+    () => (
+      <PageHeader
+        title="Get Verified!"
+        subtitle="Enter the one-time code we sent to:"
+        highlight={email}
+        className="mobileOnly"
+      />
+    ),
+    [email]
+  );
+
+  // Reset code inputs if error occurs
+  useEffect(() => {
+    if (error) setCode(Array(6).fill(""));
+  }, [error]);
+
+  // Redirect to home if no email in context
+  useEffect(() => {
+    if (!email) navigate("/");
+  }, [email]);
+
   return (
-    <PagesContainer>
+    <PagesContainer header={header}>
+      {/* Back button to modify email */}
       <Button
-        className={buttonStyles.modifButton}
+        className={buttonStyles.backButton}
         onClick={() => navigate("/")}
         whileHover="hover"
         initial="rest"
@@ -95,14 +122,17 @@ export default function Verify() {
       </Button>
 
       <div className={styles.formBox}>
-        <h1 className={styles.title}>Get Verified!</h1>
-        <p className={styles.subtitle}>
-          Enter the one-time code we sent to:{" "}
-          <span className={styles.email}>{email}</span>
-        </p>
+        {/* Header for desktop */}
+        <PageHeader
+          title="Get Verified!"
+          subtitle="Enter the one-time code we sent to:"
+          highlight={email}
+          className="desktopOnly"
+        />
 
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.codeGroup}>
+            {/* Render 6 inputs for verification code digits */}
             {code.map((digit, i) => (
               <input
                 key={i}
@@ -118,8 +148,10 @@ export default function Verify() {
             ))}
           </div>
 
-          {error && <div className={styles.error}>{error}</div>}
+          {/* Show error if any */}
+          {error && <div className="error">{error}</div>}
 
+          {/* Resend code section */}
           <p className={styles.resend}>
             Didn't get an email?{" "}
             <Button
@@ -132,6 +164,7 @@ export default function Verify() {
             </Button>
           </p>
 
+          {/* Submit button with loading state */}
           <Button
             disabled={mutation.isPending}
             type="submit"

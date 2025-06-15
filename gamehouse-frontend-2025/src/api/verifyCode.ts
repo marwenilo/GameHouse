@@ -1,9 +1,9 @@
 import { api } from "./apiEntry";
 
 export const verifyCode = async (email: string, code: string) => {
-  const res = await api.post("/api/verify-code", {
+  const res = await api.post("/api/validate-email", {
     email,
-    verification_code: code,
+    code: code,
   });
   return res.data;
 };

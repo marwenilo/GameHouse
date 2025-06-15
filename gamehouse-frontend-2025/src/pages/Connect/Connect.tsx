@@ -1,23 +1,28 @@
 import { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
-import { sendEmailValidationCode } from "../../api/sendEmailValidationCode";
 import Button from "../../components/Button/Button";
 import Input from "../../components/Input/Input";
-import { useNavigate } from "react-router-dom";
 import styles from "./Connect.module.css";
 import PagesContainer from "../../components/PagesContainer/PagesContainer";
 import { useEmailValidationMutation } from "../../hooks/useEmailValidationMutation";
+import PageHeader from "../../components/PageHeader/PageHeader";
+import { useVerify } from "../../context/VerifyContext";
 
 const Connect = () => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [wantsMarketing, setWantsMarketing] = useState(true);
-  const navigate = useNavigate();
+  const { setEmailContext } = useVerify();
 
+  // Mutation hook to send validation code to email
   const mutation = useEmailValidationMutation({
     onErrorCallback: setError,
+    onSuccessCallback: (email) => {
+      setEmailContext(email);
+      setError(""); // Clear any previous errors on success
+    },
   });
 
+  // Validate email format (basic) before submitting
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.includes("@")) {
@@ -26,11 +31,23 @@ const Connect = () => {
     }
     mutation.mutate(email);
   };
+
+  const header = (
+    <PageHeader
+      title="Connect Your Account"
+      subtitle="...and unlock your benefits!"
+      className="mobileOnly"
+    />
+  );
+
   return (
-    <PagesContainer>
+    <PagesContainer header={header}>
       <div className={styles.formBox}>
-        <h1 className={styles.title}>Connect Your Account</h1>
-        <p className={styles.subtitle}>...and unlock your benefits!</p>
+        <PageHeader
+          title="Connect Your Account"
+          subtitle="...and unlock your benefits!"
+          className="desktopOnly"
+        />
         <form onSubmit={handleSubmit} className={styles.form}>
           <Input
             type="email"
@@ -47,7 +64,7 @@ const Connect = () => {
             />
             Send Me Offers, News, and Fun Stuff!
           </label>
-          {error && <div className={styles.error}>{error}</div>}
+          {error && <div className="error">{error}</div>}
           <Button
             disabled={mutation.isPending}
             type="submit"

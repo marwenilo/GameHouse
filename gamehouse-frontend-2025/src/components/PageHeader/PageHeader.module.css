@@ -1,0 +1,20 @@
+.header {
+  text-align: center;
+}
+.title {
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.subtitle {
+  font-size: 16px;
+  text-align: center;
+  color: #ccc;
+}
+.highlight {
+  color: #86b088;
+  font-weight: 500;
+  word-break: break-all;
+}
